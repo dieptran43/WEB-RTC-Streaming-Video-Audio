@@ -33,7 +33,7 @@ function getPeerID () {
     return id;
 }
 const peer = new Peer(getPeerID(), config);
-// console.log(peer);
+console.log(peer);
 
 $('#btnCall').bind('click', () => {
     const friendId = $('#txtFriendId').val();
