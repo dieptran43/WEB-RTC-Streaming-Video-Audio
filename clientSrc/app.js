@@ -4,7 +4,29 @@ const $ = require('jquery');
 const openStream = require('./openStream');
 const playVideo = require('./playVideo');
 
-const config = { host: 'rtc-trungquandev.herokuapp.com', port: 443, secure: true, key: 'peerjs' };
+var customConfig;
+$.ajax ({
+    url: "https://global.xirsys.net/_turn/trungquan17.github.io/",
+    type: "PUT",
+    async: false,
+    headers: {
+        "Authorization": "Basic " + btoa("trungquan17:c331e31c-e9d8-11e7-9fac-2c62765d3e65")
+    },
+    success: function (res){
+        console.log("ICE List: "+res.v.iceServers);
+        customConfig = res.v.iceServers;
+    }
+});
+
+
+const config = { 
+    host: 'rtc-trungquandev.herokuapp.com', 
+    port: 443, 
+    secure: true, 
+    key: 'peerjs',
+    config: customConfig
+};
+
 function getPeerID () {
     const id = uid(10);
     $('#peer-id').append(id);
